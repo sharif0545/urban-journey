@@ -1,0 +1,64 @@
+.social-login{ 
+    text-align: center;
+    position: relative;
+}
+.social-login p{
+   width:25%; 
+   margin:5px auto; 
+   border: 1px solid lightGray; 
+   border-radius:30px; 
+   padding: 3px;
+   display: flex; 
+ 
+} 
+.social-login p img{
+    display: flex;
+    justify-content: left;
+    width:10%
+}
+
+
+.social-text-google{
+    margin-left: -57%;
+}
+
+.or::before {
+    position: absolute;
+    content: '';
+    height: 2px;
+    background-color: lightGray;
+    right: 0%;
+    left: 51%;
+    width: 11%;
+    top:10%;
+   
+}
+
+.or::after {
+	position: absolute;
+	content: '';
+	height: 2px;
+	background-color: lightGray;
+	left: 38%;
+	right: 0;
+    width: 11%;
+    top:10%;
+}
+@media only screen and (max-width:1200px){
+    .social-text-google{
+        margin-left: -90%;
+    }
+
+}
+@media only screen and (max-width:768px){
+    .social-login p {
+        width: 36%;
+
+    }
+}
+@media only screen and (max-width:576px){
+    .social-login p {
+        width: 50%;
+
+    }
+}

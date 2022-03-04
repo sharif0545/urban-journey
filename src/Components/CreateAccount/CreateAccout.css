@@ -1,0 +1,36 @@
+.account-main {
+	border: 1px solid lightGray;
+	padding: 20px 30px;
+	width: 30%;
+	margin: auto;
+}
+.account-heading{
+   font-weight: 700;
+    margin-bottom:30px
+}
+.already {
+	text-align: center;
+}
+.already span{
+   color:#f39c12
+}
+@media only screen and (max-width:1200px){
+    .account-main {
+        width: 40%;
+    }
+}
+@media only screen and (max-width:992px){
+	.account-main {
+        width: 50%;
+    }
+}
+@media only screen and (max-width:768px){
+	.account-main {
+        width: 60%;
+    }
+}
+@media only screen and (max-width:576px){
+    .account-main {
+        width: 80%;
+    }
+}

@@ -1,0 +1,11 @@
+.map-spacing{
+    min-height:550px
+}
+@media only screen and  (max-width:767px) {
+    .map-spacing{
+        /* min-height:550px */
+        margin-top: 20px;
+      
+    }
+}
+

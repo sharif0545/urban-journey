@@ -1,0 +1,34 @@
+.home-bg{
+    background-image: url("../../images/home/urban-bg6.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height:100vh;
+    background-size: cover;
+
+}
+.vehicle-container{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10rem;
+}
+.row-spacing{
+    margin: 0;
+}
+.vehicle-img-wrapper{
+    position: relative;
+   
+}
+
+@media only screen and (max-width: 768px) {
+    .home-bg {
+        background-size: cover;
+    }
+    .vehicle-img-wrapper {
+        margin: 5rem 0;
+    }
+      
+}
+
+      

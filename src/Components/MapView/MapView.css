@@ -1,0 +1,13 @@
+.mapSpacing{
+    width:850px;
+    border:1px solid lightgray;
+    border-radius: 5px; 
+ height:800px
+}
+@media only screen and (max-width:768px){
+    .oy-branch {
+        margin-top: 10%;
+        width : 70% ;
+        height: 40%;
+        }  
+}
