@@ -1,25 +1,25 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Container, Nav, Navbar, Row } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../../App";
 import LogOut from "../LogOut/LogOut";
 import NavBrand from "../AllNav/Navigation/NavBrand/NavBrand";
 import NavMenu from "../AllNav/Navigation/NavMenu/NavMenu";
-import VehicleData from "../../VehicleData/VehicleData";
+import VehicleData from "../VehicleData/VehicleData";
 import Transport from "../Transport/Transport";
 import "./Home.css";
 
 const Home = () => {
-  const [vehicles, setVehicles] = useContext(UserContext);
+  const [vehicles, setVehicles] = useState([]);
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
   useEffect(() => {
     setVehicles(VehicleData);
   }, []);
-  // console.log(vehicles);
+
   return (
     <div className="home-bg">
-      <Container fluid>
+      <Container>
         <Navbar collapseOnSelect expand="lg">
           <NavBrand />
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />

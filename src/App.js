@@ -17,14 +17,10 @@ export const UserContext = createContext();
 function App() {
   const [loggedInUser, setLoggedInUser] = useState({});
   const [booking, setBooking] = useState({});
-  const [vehicles, setVehicles] = useState([]);
+
   return (
     <UserContext.Provider
-      value={
-        ([loggedInUser, setLoggedInUser],
-        [booking, setBooking],
-        [vehicles, setVehicles])
-      }
+      value={([loggedInUser, setLoggedInUser], [booking, setBooking])}
     >
       <BrowserRouter>
         <Routes>
@@ -41,7 +37,6 @@ function App() {
           <Route path="/search/:transportID" element={<Search />} />
           <Route path="/login" element={<Login />} />
           <Route path="/createaccount" element={<CreateAccount />} />
-          {/* <Route path="/booking/:transportID" element={<Booking />} /> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

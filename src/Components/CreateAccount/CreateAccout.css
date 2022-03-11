@@ -8,6 +8,13 @@
    font-weight: 700;
     margin-bottom:30px
 }
+.error {
+	color: red;
+	position: relative;
+	top: 0;
+	left: 1px;
+    font-size: 12px;
+}
 .already {
 	text-align: center;
 }

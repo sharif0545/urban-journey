@@ -20,18 +20,15 @@ import "./Booking.css";
 
 const Booking = () => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-  const [vehicles, setVehicles] = useContext(UserContext);
+
   const [booking, setBooking] = useContext(UserContext);
 
-  const navigate = useNavigate();
   const { transportID } = useParams();
-  // console.log(transportID);
-
-  // console.log(vehicles);
+  const navigate = useNavigate();
 
   const handleBooking = (e) => {
-    navigate("/search/" + transportID);
     e.preventDefault();
+    navigate("/search/" + transportID);
   };
 
   const handleBlur = (e) => {
@@ -111,8 +108,8 @@ const Booking = () => {
                   type="text"
                   name="origin"
                   placeholder="Origin"
-                  // id="origin"
-                  // required
+                  id="origin"
+                  required
                   onBlur={handleBlur}
                 />
               </Form.Group>
@@ -124,8 +121,8 @@ const Booking = () => {
                   type="text"
                   name="destination"
                   placeholder="Destination"
-                  // id="destination"
-                  // required
+                  id="destination"
+                  required
                   onBlur={handleBlur}
                 />
               </Form.Group>
@@ -136,9 +133,8 @@ const Booking = () => {
                     className="text-muted"
                     type="date"
                     name="from"
-                    // placeholder="from"
-                    // id="from"
-                    // required
+                    id="from"
+                    required
                     onBlur={handleBlur}
                   />
                 </Form.Group>
@@ -148,15 +144,18 @@ const Booking = () => {
                     className="text-muted"
                     type="date"
                     name="to"
-                    // placeholder="to"
                     id="to"
-                    // required
+                    required
                     onBlur={handleBlur}
                   />
                 </Form.Group>
               </Row>
               <div className="mt-3 d-grid">
-                <Button variant="warning" type="submit">
+                <Button
+                  className="btn btn-warning d-grid"
+                  variant="inherit"
+                  type="submit"
+                >
                   Book now
                 </Button>
               </div>

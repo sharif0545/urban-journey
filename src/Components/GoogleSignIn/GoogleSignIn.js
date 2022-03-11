@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../../firebaseConfig";
@@ -7,25 +7,20 @@ import firebaseConfig from "../../firebaseConfig";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { UserContext } from "../../App";
 
-import VehicleData from "../../VehicleData/VehicleData";
-import google from "../../images/social/google.png";
+import google from "../images/social/google.png";
 import "./GoogleSignIn.css";
 
 const app = initializeApp(firebaseConfig);
 
 const GoogleSignIn = () => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-  const [user, setUser] = useState();
+
+  const [user, setUser] = useState({});
 
   const navigate = useNavigate();
   const location = useLocation();
-  const { transportID } = useParams();
-  let { from } = location.state || { from: { pathname: "/" } };
 
-  const selectedTransport = VehicleData.find(
-    (trans) => trans.vechileId === transportID
-  );
-  // console.log(selectedTransport, transportID);
+  let { from } = location.state || { from: { pathname: "/" } };
 
   const googleProvider = new GoogleAuthProvider();
   const handleGoogleSignIn = () => {
@@ -33,11 +28,12 @@ const GoogleSignIn = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const { displayName, email } = result.user;
-        const signedInUser = {
+        let signedInUser = {
           isSignedIn: true,
           name: displayName,
           email: email,
           success: true,
+          error: "",
         };
         setUser(signedInUser);
         setLoggedInUser(signedInUser);
@@ -48,6 +44,15 @@ const GoogleSignIn = () => {
         const errorMessage = error.message;
         const email = error.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
+        let signedInUser = {
+          isSignedIn: false,
+          name: "",
+          email: "",
+          success: false,
+          error: errorMessage,
+        };
+        setUser(signedInUser);
+        setLoggedInUser(signedInUser);
         console.log(errorCode, errorMessage, email, credential);
       });
   };
@@ -55,25 +60,18 @@ const GoogleSignIn = () => {
   return (
     <div className="social-login">
       <span className="or">Or</span>
-      <p onClick={handleGoogleSignIn}>
-        <span>
+      <button onClick={handleGoogleSignIn}>
+        <div>
           {" "}
-          <img src={google} alt="google" />{" "}
-        </span>{" "}
-        <span className="social-text-google">
+          <img style={{ width: "10%" }} src={google} alt="google" />{" "}
+        </div>{" "}
+        <div className="social-text-google">
           {" "}
-          <Link
-            style={{ textDecoration: "none" }}
-            to={"/booking/" + selectedTransport}
-          >
-            Continue with google
-          </Link>
-        </span>
-      </p>
+          <>Continue with google</>
+        </div>
+      </button>
     </div>
   );
 };
 
 export default GoogleSignIn;
-
-//<FontAwesomeIcon icon="fa-brands fa-google" />

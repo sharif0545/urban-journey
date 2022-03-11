@@ -1,10 +1,72 @@
-/* .travel-place{
-    background-color: ;
-} */
-.selected-img{
-    width:70%;
+.travel-info{
+background-color: lightgray;
+padding: 10px;
+border-radius: 5px;
 }
-.display-transport{
-    background-color: white !important;
+.selected-img{
+    width:80%;
+}
+.transport-des{
+    padding: 20px  40px;
+    margin: 10px 0;
 }
 
+@media only screen and (max-width: 1400px) {
+    .selected-img{
+        width:100%;
+    }
+    .transport-des {
+        padding: 20px 50px;
+    }
+    .perkilo-cost{
+        margin-left: -10px;
+    }
+}
+@media only screen and (max-width: 1200px) {
+
+    .transport-des{
+        padding: 20px 10px;
+    }
+    .transport-category{
+        margin-left: -15px;
+    }
+    .passenger-count{
+        margin-left: -10px;
+    }
+    .perkilo-cost{
+        margin-left: -15px;
+    }
+}
+@media only screen and (max-width: 992px) {
+
+    .transport-des {
+        padding: 20px 5px;
+    }
+    .transport-category{
+        margin-left: -10px;
+    }
+    .passenger-count{
+        margin-left: -10px;
+    }
+    .perkilo-cost{
+        margin-left: -15px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .transport-des {
+        padding: 20px 70px;
+    }
+    .selected-img {
+        width: 50%;
+        margin: 2% 25%;
+    }
+    .transport-category{
+        margin: 2% 25%;
+    }
+    .passenger-count{
+        margin: 2% 25%;
+    }
+    .perkilo-cost{
+        margin: 2% 25%;
+    }
+}

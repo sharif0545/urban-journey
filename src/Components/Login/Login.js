@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Button, Container, Form, Navbar } from "react-bootstrap";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../App";
 import GoogleSignIn from "../GoogleSignIn/GoogleSignIn";
 
@@ -8,16 +8,17 @@ import { initializeApp } from "firebase/app";
 import "./Login.css";
 
 import firebaseConfig from "../../firebaseConfig";
-import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import NavBrand from "../AllNav/Navigation/NavBrand/NavBrand";
 import NavMenu from "../AllNav/Navigation/NavMenu/NavMenu";
 const app = initializeApp(firebaseConfig);
 
 const Login = () => {
+  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
   let navigate = useNavigate();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
-  const googleProvider = new GoogleAuthProvider();
 
   const [user, setUser] = useState({
     isSignedIn: false,
@@ -27,9 +28,56 @@ const Login = () => {
     error: "",
     success: false,
   });
-  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-  const [vehicles, setVehicles] = useContext(UserContext);
+  const handleBlur = (e) => {
+    let isFormValid = true;
+    if (e.target.name === "email") {
+      isFormValid = /\S+@\S+\.\S+/.test(e.target.value);
+    }
+    if (e.target.name === "password") {
+      const passwordNumber = /([\w+?\W+?]{6})/.test(e.target.value);
+      isFormValid = passwordNumber;
+    }
+
+    if (isFormValid) {
+      const newUserInfo = { ...user };
+      newUserInfo[e.target.name] = e.target.value;
+      setUser(newUserInfo);
+    }
+  };
+
   const handleSubmit = (e) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, user.email, user.password)
+      .then((res) => {
+        const { displayName, email, password } = res.user;
+        let signedInUser = {
+          isSignedIn: true,
+          name: displayName,
+          email: email,
+          password: password,
+          error: "",
+          success: true,
+        };
+        setUser(signedInUser);
+        setLoggedInUser(signedInUser);
+
+        navigate(from);
+      })
+      .catch((error) => {
+        let signedInUser = {
+          isSignedIn: false,
+          name: "",
+          email: "",
+          password: "",
+          error: error.message,
+          success: false,
+        };
+
+        setUser(signedInUser);
+        setLoggedInUser(signedInUser);
+        console.log(error.message);
+      });
+
     e.preventDefault();
   };
 
@@ -37,14 +85,20 @@ const Login = () => {
     <div>
       <Container>
         <Navbar collapseOnSelect expand="lg">
-          {/* <Container className=""> */}
           <NavBrand />
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <NavMenu />
           </Navbar.Collapse>
-          {/* </Container> */}
         </Navbar>
+        {loggedInUser.email && (
+          <h4
+            style={{ textAlign: "center", fontWeight: "500", color: "green" }}
+          >
+            Hello <span style={{ color: "coral" }}>{loggedInUser.name}</span> ,
+            Your account created successfully!
+          </h4>
+        )}
       </Container>
       <div id="create-login">
         <div className="create-login">
@@ -57,7 +111,9 @@ const Login = () => {
                 name="email"
                 placeholder="Enter email"
                 required
+                onBlur={handleBlur}
               />
+              {!user.email && <p className="error">Invalid email.</p>}
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
@@ -70,11 +126,13 @@ const Login = () => {
                 name="password"
                 placeholder="Password"
                 required
+                onBlur={handleBlur}
               />
+              {!user.password && <p className="error">Invalid password.</p>}
             </Form.Group>
             <span className="text-muted" style={{ fontSize: "12px" }}>
-              Password should be in 6 characters with at least one numeric
-              digit.
+              Password should be in 6 characters including capital & small
+              letters,numeric and literal charecters.
             </span>
             <Form.Group
               className="mb-3"

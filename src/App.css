@@ -1,14 +1,14 @@
 .logo-style{
-  width: 40%;
+  width: 50%;
 }
 .navStyle {
 padding-left: 20rem !important;
   text-align: center;
 }
 .navLinkStyle {
-text-decoration: none;
-margin: 0 40px;
-color: #000000;
+  text-decoration: none;
+  margin: 0 40px;
+  color: #000000;
 }
 @media only screen and (max-width: 1400px){
   .navStyle {
